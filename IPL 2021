@@ -1,0 +1,32 @@
+/*IPL 2021 Finals are here and it is between the most successful team of the IPL Mumbai Indians and the team striving to
+garb their first trophy Royal Challengers Banglore. Rohit Sharma, captain of the team Mumbai Indians has the most experience in IPL finals,
+he feels lucky if he solves a programming question before the IPL finals. So, he asked the team's head coach  Mahela Jayawardene for a question. 
+Question is,given a string S consisting only of opening and closing parenthesis 'ie '('  and ')',  
+the task is to find out the length of the longest valid parentheses substring.*/
+
+
+class Solution {
+    public int findMaxLen(String s) {
+        int arr[]=new int [s.length()];
+        int res=0;
+        Stack<Integer>st=new Stack<Integer>();
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='(')
+                st.push(i);
+                
+            else{
+                if(st.size()>0 && st.peek()>0){
+                    int len=i-st.peek()+1;
+                    arr[i]=arr[st.pop()-1]+len;
+                }
+                else if(st.size()>0){
+                    int len=i-st.pop()+1;
+                    arr[i]=len;
+                }
+                res=Math.max(res,arr[i]);
+            }
+            
+        }
+        return(res);
+    }
+}
